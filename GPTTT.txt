@@ -1,0 +1,719 @@
+
+
+
+Pasted text(8).txt
+Document
+
+Client.java
+File
+
+Hello.java
+File
+
+ImplExample.java
+File
+import java.rmi.registry.Registry; 
+import java.rmi.registry.LocateRegistry; 
+import java.rmi.RemoteException; 
+import java.rmi.server.UnicastRemoteObject; 
+
+public class Server extends ImplExample { 
+   public Server() {} 
+   public static void main(String args[]) { 
+      try { 
+         // Instantiating the implementation class 
+         ImplExample obj = new ImplExample(); 
+    
+         // Exporting the object of implementation class  
+         // (here we are exporting the remote object to the stub) 
+         Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);  
+         
+         // Binding the remote object (stub) in the registry 
+         Registry registry = LocateRegistry.getRegistry(); 
+         
+         registry.bind("Hello", stub);  
+         System.err.println("Server ready"); 
+      } catch (Exception e) { 
+         System.err.println("Server exception: " + e.toString()); 
+         e.printStackTrace(); 
+      } 
+   } 
+} 
+this is server.java file so i have share the all the data assignment 1 details so give that what is the assignment exactly and how to excute it i have my practical exam so i want from scractch step by step .....
+
+You are getting errors because you are using PowerShell and probably your .java files are not compiled yet.
+
+Don’t worry 👍
+I’ll tell you the exact correct steps.
+
+Problem 1 → rmiregistry Warning
+WARNING: System::setSecurityManager
+This is NOT an error.
+
+It happens because you are using a newer Java version.
+
+You can IGNORE it ✅
+
+Registry is running successfully.
+
+Problem 2 → javac *.java not working
+In PowerShell sometimes *.java does not work properly.
+
+Instead use:
+
+javac Hello.java
+javac ImplExample.java
+javac Server.java
+javac Client.java
+Run one by one.
+
+Problem 3 → Could not find or load main class Server
+This happens because:
+
+Server.class file was not created
+
+Compilation failed earlier
+
+After successful compilation, this error disappears.
+
+NOW FOLLOW EXACT STEPS
+STEP 1: Check Files
+Your folder should contain:
+
+Hello.java
+ImplExample.java
+Server.java
+Client.java
+STEP 2: Open PowerShell in Folder
+You already did this:
+
+PS C:\Users\dhana\Desktop\DSCODES>
+Good ✅
+
+STEP 3: Compile Files
+Run these commands ONE BY ONE:
+
+javac Hello.java
+Then:
+
+javac ImplExample.java
+Then:
+
+javac Server.java
+Then:
+
+javac Client.java
+STEP 4: Check .class Files
+After compilation, folder should contain:
+
+Hello.class
+ImplExample.class
+Server.class
+Client.class
+STEP 5: Create Stub
+Run:
+
+rmic ImplExample
+After this you should see:
+
+ImplExample_Stub.class
+STEP 6: Start Registry
+Open NEW PowerShell window.
+
+Go to same folder:
+
+cd C:\Users\dhana\Desktop\DSCODES
+Run:
+
+rmiregistry
+Leave this window OPEN.
+
+STEP 7: Run Server
+Open another NEW PowerShell window.
+
+Go to same folder.
+
+Run:
+
+java Server
+Expected output:
+
+Server ready
+STEP 8: Run Client
+Open another PowerShell window.
+
+Go to same folder.
+
+Run:
+
+java Client
+Expected output:
+
+This is an example RMI program
+IMPORTANT
+If rmic ImplExample gives error:
+
+Then you are probably using Java 17 or newer.
+
+For practical exam:
+
+BEST OPTION
+Use:
+
+Java 8
+because:
+
+rmic works perfectly
+
+RMI assignments are designed for Java 8
+
+HOW TO CHECK JAVA VERSION
+Run:
+
+java -version
+If version is above 8, then warnings/errors may happen.
+
+IMPORTANT ORAL QUESTION
+Why do we use rmiregistry?
+Answer:
+
+It is used to register remote objects so that clients can find and access them remotely.
+
+Another Important Question
+Why are multiple terminals required?
+Terminal	Purpose
+1	rmiregistry
+2	server
+3	client
+Because all run simultaneously.
+
+SIMPLE FLOW TO REMEMBER
+Compile → Generate Stub → Start Registry → Run Server → Run Client
+Very important for viva ✅
+
+
+
+Assignment No1.pdf
+PDF
+the above files code i am running
+
+image(16).png
+
+image(17).png
+
+
+Pasted text(9).txt
+Document
+from the above i have only the bully assignmnet so give the explain of that one only
+
+
+Assignment No6.pdf
+PDF
+in the above file i have to execute bully how to give step by step
+
+
+Pasted text(10).txt
+Document
+ explain this assignment what is it 
+
+
+Assignment No5.pdf
+PDF
+this is token ring assignmnet right give steps how to execute it 
+
+Your logic is almost correct 👍
+But your braces { } are misplaced, so the program will give errors.
+
+The problem is here:
+
+else 
+{ 
+} 
+System.out.println("Process " + token + " does not request CS");
+Because the print statement should be INSIDE else.
+
+Also sc.close(); is outside main().
+
+CORRECT CODE
+import java.util.Scanner;
+
+public class TokenRing
+{
+    public static void main(String args[])
+    {
+        Scanner sc = new Scanner(System.in);
+
+        int n, token = 0;
+
+        System.out.print("Enter number of processes: ");
+        n = sc.nextInt();
+
+        int request[] = new int[n];
+
+        for(int i = 0; i < n; i++)
+        {
+            System.out.print("Enter request for process " + i + " (0/1): ");
+            request[i] = sc.nextInt();
+        }
+
+        System.out.println("\nToken Ring Execution:");
+
+        for(int i = 0; i < n; i++)
+        {
+            System.out.println("\nToken passed to Process " + token);
+
+            if(request[token] == 1)
+            {
+                System.out.println("Process " + token + " ENTERS Critical Section");
+                System.out.println("Process " + token + " EXITS Critical Section");
+            }
+            else
+            {
+                System.out.println("Process " + token + " does not request CS");
+            }
+
+            token = (token + 1) % n;
+        }
+
+        sc.close();
+    }
+}
+WHAT WAS WRONG?
+1. Else Block Error
+You wrote:
+
+else
+{
+}
+System.out.println(...)
+So print statement was outside else block.
+
+Correct:
+
+else
+{
+   System.out.println(...)
+}
+2. sc.close() Position
+You placed:
+
+sc.close();
+outside main method.
+
+It should be inside main().
+
+EXECUTION COMMANDS
+Compile
+javac TokenRing.java
+Run
+java TokenRing
+SAMPLE INPUT
+4
+1
+0
+1
+0
+SAMPLE OUTPUT
+Token passed to Process 0
+Process 0 ENTERS Critical Section
+Process 0 EXITS Critical Section
+
+Token passed to Process 1
+Process 1 does not request CS
+Program will work correctly now ✅
+
+
+PS C:\Users\dhana\Desktop\DSCODES> java TokenRing
+Enter number of processes: 4
+Enter request for process 0 (0/1): 1
+Enter request for process 1 (0/1): 0
+Enter request for process 2 (0/1): 1
+Enter request for process 3 (0/1): 0
+
+Token Ring Execution:
+
+Token passed to Process 0
+Process 0 ENTERS Critical Section
+Process 0 EXITS Critical Section
+
+Token passed to Process 1
+Process 1 does not request CS
+
+Token passed to Process 2
+Process 2 ENTERS Critical Section
+Process 2 EXITS Critical Section
+
+Token passed to Process 3
+Process 3 does not request CS
+PS C:\Users\dhana\Desktop\DSCODES> 
+what is meaning of this
+
+Your output means the Token Ring Algorithm is working correctly ✅
+
+Now I’ll explain the meaning line by line.
+
+INPUT GIVEN
+Number of processes = 4
+Processes are:
+
+P0  P1  P2  P3
+REQUEST VALUES
+You entered:
+
+Process	Input	Meaning
+P0	1	Wants Critical Section
+P1	0	Does NOT want Critical Section
+P2	1	Wants Critical Section
+P3	0	Does NOT want Critical Section
+WHAT IS TOKEN?
+Token means:
+
+Permission to use shared resource
+Only process having token can use resource.
+
+WHAT IS CRITICAL SECTION?
+Critical Section means:
+
+Shared resource area
+Example:
+
+Printer
+
+Database
+
+Shared file
+
+OUTPUT EXPLANATION
+STEP 1
+Token passed to Process 0
+Meaning:
+
+Token reaches P0
+
+Now P0 checks:
+
+Do I want critical section?
+
+Input for P0 was:
+
+1
+Meaning:
+
+YES
+So:
+
+Process 0 ENTERS Critical Section
+Process 0 EXITS Critical Section
+Meaning:
+
+P0 uses shared resource
+
+Finishes work
+
+Leaves resource
+
+STEP 2
+Token passed to Process 1
+Now token reaches P1.
+
+P1 input was:
+
+0
+Meaning:
+
+P1 does not need resource
+So output:
+
+Process 1 does not request CS
+Meaning:
+
+P1 skips resource
+
+Passes token ahead
+
+STEP 3
+Token passed to Process 2
+P2 input was:
+
+1
+Meaning:
+
+P2 wants resource
+
+So:
+
+Process 2 ENTERS Critical Section
+Process 2 EXITS Critical Section
+Meaning:
+
+P2 uses shared resource
+
+Finishes work
+
+STEP 4
+Token passed to Process 3
+P3 input:
+
+0
+Meaning:
+
+P3 does not want resource
+
+So token simply moves ahead.
+
+MAIN LOGIC OF ASSIGNMENT
+Only process having token can enter Critical Section
+Therefore:
+
+Mutual exclusion achieved
+
+Only one process accesses resource at a time
+
+SIMPLE REAL-LIFE EXAMPLE
+Imagine:
+
+4 students sitting in circle
+
+One microphone/token
+
+Only student holding microphone can speak.
+
+After speaking:
+
+Microphone passed to next student
+
+Same thing happens here.
+
+IMPORTANT ORAL QUESTION
+Why did Process 1 not enter Critical Section?
+Answer:
+
+Because its request value was 0, meaning it did not need the shared resource.
+
+IMPORTANT ORAL QUESTION
+Why only one process enters Critical Section?
+Answer:
+
+Because only one process has the token at a time.
+
+COMPLETE FLOW
+Token → P0 → P1 → P2 → P3
+Processes requesting resource:
+
+Use it
+
+Exit it
+
+Pass token ahead
+
+This is Token Ring Mutual Exclusion ✅
+
+
+
+Pasted text(11).txt
+Document
+
+Your Assignment No. 7 is about:
+
+Creating and Consuming a Simple Web Service 
+
+This assignment explains:
+
+How to create a web service
+
+How another application (client) uses that service
+
+WHAT IS A WEB SERVICE?
+A web service allows:
+
+One application to communicate with another application over network
+Example:
+
+Java app communicates with another Java app
+
+Java app communicates with .NET/PHP app
+
+MAIN IDEA OF ASSIGNMENT
+You create:
+
+A Calculator Web Service
+which provides operation like:
+
+add(i, j)
+Then client application calls it remotely.
+
+SIMPLE REAL-LIFE EXAMPLE
+Think:
+
+Swiggy app → sends request to restaurant
+
+Restaurant → sends food/result back
+
+Same way:
+
+Client sends request
+↓
+Web Service processes request
+↓
+Response returned
+MAIN COMPONENTS
+Component	Meaning
+Service Provider	Provides service
+Service Requestor	Uses service
+Service Registry	Stores service information
+
+
+TYPES OF WEB SERVICES
+1. SOAP
+SOAP means:
+
+Simple Object Access Protocol
+XML based
+
+Platform independent
+
+Uses WSDL and UDDI
+
+2. REST
+REST means:
+
+Representational State Transfer
+Lightweight
+
+Faster
+
+Uses URLs/URIs
+
+YOUR ASSIGNMENT USES
+Mostly:
+
+SOAP Web Service
+MAIN LOGIC OF ASSIGNMENT
+Step 1
+Create Calculator Web Service.
+
+Step 2
+Add method:
+
+add(int i, int j)
+Example:
+
+3 + 4 = 7
+Step 3
+Deploy service on:
+
+GlassFish
+or
+
+Tomcat server
+
+Step 4
+Create client application.
+
+Step 5
+Client calls web service method remotely.
+
+HOW COMMUNICATION HAPPENS?
+FLOW
+Client
+↓
+SOAP Request
+↓
+Web Service
+↓
+Server Processes Request
+↓
+SOAP Response
+↓
+Client Gets Result
+IMPORTANT TERMS
+WSDL
+WSDL means:
+
+Web Service Description Language
+It describes:
+
+Service methods
+
+Parameters
+
+Return types
+
+UDDI
+UDDI means:
+
+Universal Description Discovery and Integration
+Used for:
+
+Discovering web services
+
+JAX-WS
+Java API used to create SOAP web services.
+
+
+
+SIMPLE ADD METHOD LOGIC
+int k = i + j;
+return k;
+Meaning:
+
+Add two numbers
+
+Return answer to client
+
+CLIENT SIDE LOGIC
+Client does:
+
+Calls add(3,4)
+Server processes:
+
+3 + 4 = 7
+Client receives:
+
+Result = 7
+IMPORTANT ORAL QUESTIONS
+1. What is Web Service?
+Answer:
+
+Web service is a software component that allows communication between applications over a network.
+
+2. What is SOAP?
+Answer:
+
+SOAP is XML-based protocol used for web services communication.
+
+3. What is REST?
+Answer:
+
+REST is architectural style for lightweight web services.
+
+4. Difference between SOAP and REST?
+SOAP	REST
+Protocol	Architectural style
+XML based	Uses JSON/XML
+Heavy	Lightweight
+Slower	Faster
+5. What is WSDL?
+Answer:
+
+WSDL describes web service methods and operations.
+
+6. What is JAX-WS?
+Answer:
+
+JAX-WS is Java API used to create SOAP web services.
+
+7. What is Service Provider?
+Answer:
+
+Service provider hosts and exposes web service.
+
+8. What is Service Requestor?
+Answer:
+
+Service requestor consumes or uses web service.
+
+SIMPLE CONCLUSION
+In this assignment, we created and consumed a simple web service using Java APIs. The client application successfully invoked the remote add() method and received the result through web service communication.
+
+
